@@ -1,0 +1,30 @@
+2025-04-21 13:11:08,189 [INFO] Starting OmegaPRM processing
+2025-04-21 13:11:08,189 [INFO] Using model: /mnt/weka/all/.cache/huggingface/hub/models--Qwen--Qwen2.5-Math-7B-Instruct on device: cuda
+2025-04-21 13:11:08,189 [INFO] Output file: output_results_data/results_part_1.json/math-aps-v2.jsonl
+2025-04-21 13:11:08,189 [INFO] Question file: output_directory/questions_part_1.json
+2025-04-21 13:12:47,163 [INFO] Starting OmegaPRM processing
+2025-04-21 13:12:47,164 [INFO] Using model: /mnt/weka/all/.cache/huggingface/hub/Qwen/Qwen2.5-Math-7B-Instruct on device: cuda
+2025-04-21 13:12:47,164 [INFO] Output file: output_results_data/results_part_1.json/math-aps-v2.jsonl
+2025-04-21 13:12:47,164 [INFO] Question file: output_directory/questions_part_1.json
+2025-04-21 13:13:30,163 [INFO] Starting OmegaPRM processing
+2025-04-21 13:13:30,163 [INFO] Using model: Qwen/Qwen2.5-Math-7B-Instruct on device: cuda
+2025-04-21 13:13:30,163 [INFO] Output file: output_results_data/results_part_1.json/math-aps-v2.jsonl
+2025-04-21 13:13:30,164 [INFO] Question file: output_directory/questions_part_1.json
+2025-04-21 13:14:05,153 [INFO] Skipping question: A board game spinner is divided into three parts labeled $A$, $B$  and $C$. The probability of the spinner landing on $A$ is $\frac{1}{3}$ and the probability of the spinner landing on $B$ is $\frac{5}{12}$.  What is the probability of the spinner landing on $C$? Express your answer as a common fraction.
+2025-04-21 13:14:12,563 [INFO] Question passed filter: My school's math club has 6 boys and 8 girls.  I need to select a team to send to the state math competition.  We want 6 people on the team.  In how many ways can I select the team without restrictions?
+2025-04-21 13:14:12,563 [INFO] Processing question with OmegaPRM: My school's math club has 6 boys and 8 girls.  I need to select a team to send to the state math competition.  We want 6 people on the team.  In how many ways can I select the team without restrictions?
+2025-04-21 13:15:19,848 [INFO] Question 1 is saved to output_results_data/results_part_1.json/math-aps-v2.jsonl
+2025-04-21 13:15:23,250 [INFO] Skipping question: How many 4-letter words with at least one consonant can be constructed from the letters $A$, $B$, $C$, $D$, and $E$?  (Note that $B$, $C$, and $D$ are consonants, any word is valid, not just English language words, and letters may be used more than once.)
+2025-04-21 13:15:30,805 [INFO] Question passed filter: Melinda will roll two standard six-sided dice and make a two-digit number with the two numbers she rolls. For example, if she rolls a 6 and a 3, she can either form 36 or 63. What is the probability that she will be able to make an integer between 10 and 20, inclusive? Express your answer as a common fraction.
+2025-04-21 13:15:30,805 [INFO] Processing question with OmegaPRM: Melinda will roll two standard six-sided dice and make a two-digit number with the two numbers she rolls. For example, if she rolls a 6 and a 3, she can either form 36 or 63. What is the probability that she will be able to make an integer between 10 and 20, inclusive? Express your answer as a common fraction.
+2025-04-21 13:16:16,826 [INFO] Question 3 is saved to output_results_data/results_part_1.json/math-aps-v2.jsonl
+2025-04-21 13:16:33,337 [INFO] Question passed filter: Let $p$ be the probability that, in the process of repeatedly flipping a fair coin, one will encounter a run of $5$ heads before one encounters a run of $2$ tails. Given that $p$ can be written in the form $m/n$ where $m$ and $n$ are relatively prime positive integers, find $m+n$.
+
+2025-04-21 13:16:33,337 [INFO] Processing question with OmegaPRM: Let $p$ be the probability that, in the process of repeatedly flipping a fair coin, one will encounter a run of $5$ heads before one encounters a run of $2$ tails. Given that $p$ can be written in the form $m/n$ where $m$ and $n$ are relatively prime positive integers, find $m+n$.
+
+2025-04-21 13:18:23,783 [INFO] Question 4 is saved to output_results_data/results_part_1.json/math-aps-v2.jsonl
+2025-04-21 13:18:33,208 [INFO] Question passed filter: How many four-digit numbers greater than 2999 can be formed such that the product of the middle two digits exceeds 5?
+2025-04-21 13:18:33,208 [INFO] Processing question with OmegaPRM: How many four-digit numbers greater than 2999 can be formed such that the product of the middle two digits exceeds 5?
+2025-04-21 13:19:09,599 [INFO] Question 5 is saved to output_results_data/results_part_1.json/math-aps-v2.jsonl
+2025-04-21 13:19:18,464 [INFO] Question passed filter: I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?
+2025-04-21 13:19:18,464 [INFO] Processing question with OmegaPRM: I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?

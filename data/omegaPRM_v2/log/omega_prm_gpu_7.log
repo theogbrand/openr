@@ -1,0 +1,128 @@
+2025-04-21 13:11:07,212 [INFO] Starting OmegaPRM processing
+2025-04-21 13:11:07,212 [INFO] Using model: /mnt/weka/all/.cache/huggingface/hub/models--Qwen--Qwen2.5-Math-7B-Instruct on device: cuda
+2025-04-21 13:11:07,212 [INFO] Output file: output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:11:07,212 [INFO] Question file: output_directory/questions_part_8.json
+2025-04-21 13:12:47,172 [INFO] Starting OmegaPRM processing
+2025-04-21 13:12:47,172 [INFO] Using model: /mnt/weka/all/.cache/huggingface/hub/Qwen/Qwen2.5-Math-7B-Instruct on device: cuda
+2025-04-21 13:12:47,172 [INFO] Output file: output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:12:47,172 [INFO] Question file: output_directory/questions_part_8.json
+2025-04-21 13:13:31,593 [INFO] Starting OmegaPRM processing
+2025-04-21 13:13:31,594 [INFO] Using model: Qwen/Qwen2.5-Math-7B-Instruct on device: cuda
+2025-04-21 13:13:31,594 [INFO] Output file: output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:13:31,594 [INFO] Question file: output_directory/questions_part_8.json
+2025-04-21 13:14:04,623 [INFO] Question passed filter: Suppose $f(x)=\frac{3}{2-x}$. If $g(x)=\frac{1}{f^{-1}(x)}+9$, find $g(3)$.
+2025-04-21 13:14:04,624 [INFO] Processing question with OmegaPRM: Suppose $f(x)=\frac{3}{2-x}$. If $g(x)=\frac{1}{f^{-1}(x)}+9$, find $g(3)$.
+2025-04-21 13:14:22,252 [INFO] Question 0 is saved to output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:14:24,367 [INFO] Skipping question: The operation $*$ is defined for non-zero integers as follows: $a * b = \frac{1}{a} + \frac{1}{b}$. If $a+b = 9$ and $ a \times b = 20$, what is the value of $a*b$? Express your answer as a common fraction.
+2025-04-21 13:14:29,845 [INFO] Question passed filter: Find the greatest value of $a$ such that $a^2-10a+21 \le 0$.
+2025-04-21 13:14:29,845 [INFO] Processing question with OmegaPRM: Find the greatest value of $a$ such that $a^2-10a+21 \le 0$.
+2025-04-21 13:14:34,645 [INFO] Question 2 is saved to output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:14:38,653 [INFO] Skipping question: Compute the exact value of the expression $\left|\pi - | \pi - 7 | \right|$.  Write your answer using only integers and $\pi$, without any absolute value signs.
+2025-04-21 13:14:44,161 [INFO] Question passed filter: For how many positive integers $n$ does $1+2+\cdots+n$ evenly divide $6n$?
+2025-04-21 13:14:44,162 [INFO] Processing question with OmegaPRM: For how many positive integers $n$ does $1+2+\cdots+n$ evenly divide $6n$?
+2025-04-21 13:14:51,167 [INFO] Question 4 is saved to output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:14:55,596 [INFO] Skipping question: The product of two consecutive negative integers is 2550. What is the sum of the two integers?
+2025-04-21 13:14:59,040 [INFO] Skipping question: The roots of the equation $2x^2 - 5x - 4 = 0$ can be written in the form $x = \frac{m \pm \sqrt{n}}{p}$, where $m$, $n$, and $p$ are positive integers with a greatest common divisor of 1. What is the value of $n$?
+2025-04-21 13:15:06,010 [INFO] Skipping question: Find $a+b+c$ if the graph of the equation $y=ax^2+bx+c$ is a parabola with vertex $(5,3)$, vertical axis of symmetry, and contains the point $(2,0)$.
+2025-04-21 13:15:10,470 [INFO] Skipping question: A chess team has $26$ members. However, only $16$ members attended the last meeting: half of the girls attended but all of the boys attended. How many girls are on the chess team?
+2025-04-21 13:15:27,098 [INFO] Question passed filter: The entire graph of the function $f(x)$ is shown below ($f$ is only defined when $x$ is between $-4$ and $4$ inclusive). How many values of $x$ satisfy $f(f(x)) = 2$?
+
+[asy]
+import graph; size(9cm);
+
+real lsf=0.5;
+
+pen dps=linewidth(0.7)+fontsize(10);
+
+defaultpen(dps); pen ds=black;
+
+real xmin=-4.5,xmax=4.5,ymin=-0.5,ymax=4.5;
+
+Label laxis; laxis.p=fontsize(10);
+
+xaxis("$x$",xmin,xmax,defaultpen+black,Ticks(laxis,Step=1.0,Size=2,OmitTick(0)),Arrows(6),above=true);
+yaxis("$y$",ymin,ymax,defaultpen+black,Ticks(laxis,Step=1.0,Size=2,OmitTick(0)),Arrows(6),above=true);
+
+//draw((xmin,(-(0)-(-2)*xmin)/-2)--(-1,(-(0)-(-2)*-1)/-2),linewidth(1.2),BeginArrow(6)); //draw((-1,1)--(3,5),linewidth(1.2));
+
+//draw((3,(-(-16)-(2)*3)/2)--(xmax,(-(-16)-(2)*xmax)/2),linewidth(1.2),EndArrow(6));
+
+real f(real x) { return -.5*x^2-1.5*x+2;}
+draw(graph(f,-4,-2));
+draw((-2,3)--(2,1));
+real f(real x) { return .5*x^2-1.5x+2;}
+draw(graph(f,2,4));
+
+label("$f(x)$",(-3,5),E);
+
+dot("$(-4,0)$", (-4,0), NW);
+dot("$(-3,2)$", (-3,2), NW);
+dot("$(-2,3)$", (-2,3), N);
+dot("$(0,2)$", (0,2), NE);
+dot("$(2,1)$", (2,1), S);
+dot("$(3,2)$", (3,2), SE);
+dot("$(4,4)$", (4,4), NE);
+
+//clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle);
+[/asy]
+2025-04-21 13:15:27,098 [INFO] Processing question with OmegaPRM: The entire graph of the function $f(x)$ is shown below ($f$ is only defined when $x$ is between $-4$ and $4$ inclusive). How many values of $x$ satisfy $f(f(x)) = 2$?
+
+[asy]
+import graph; size(9cm);
+
+real lsf=0.5;
+
+pen dps=linewidth(0.7)+fontsize(10);
+
+defaultpen(dps); pen ds=black;
+
+real xmin=-4.5,xmax=4.5,ymin=-0.5,ymax=4.5;
+
+Label laxis; laxis.p=fontsize(10);
+
+xaxis("$x$",xmin,xmax,defaultpen+black,Ticks(laxis,Step=1.0,Size=2,OmitTick(0)),Arrows(6),above=true);
+yaxis("$y$",ymin,ymax,defaultpen+black,Ticks(laxis,Step=1.0,Size=2,OmitTick(0)),Arrows(6),above=true);
+
+//draw((xmin,(-(0)-(-2)*xmin)/-2)--(-1,(-(0)-(-2)*-1)/-2),linewidth(1.2),BeginArrow(6)); //draw((-1,1)--(3,5),linewidth(1.2));
+
+//draw((3,(-(-16)-(2)*3)/2)--(xmax,(-(-16)-(2)*xmax)/2),linewidth(1.2),EndArrow(6));
+
+real f(real x) { return -.5*x^2-1.5*x+2;}
+draw(graph(f,-4,-2));
+draw((-2,3)--(2,1));
+real f(real x) { return .5*x^2-1.5x+2;}
+draw(graph(f,2,4));
+
+label("$f(x)$",(-3,5),E);
+
+dot("$(-4,0)$", (-4,0), NW);
+dot("$(-3,2)$", (-3,2), NW);
+dot("$(-2,3)$", (-2,3), N);
+dot("$(0,2)$", (0,2), NE);
+dot("$(2,1)$", (2,1), S);
+dot("$(3,2)$", (3,2), SE);
+dot("$(4,4)$", (4,4), NE);
+
+//clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle);
+[/asy]
+2025-04-21 13:16:08,919 [INFO] Question 9 is saved to output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:16:10,480 [INFO] Skipping question: If $x \cdot (x+y) = x^2 + 8$, what is the value of $xy$?
+2025-04-21 13:16:12,148 [INFO] Question passed filter: The function $f(x)$ is defined by $f(x)=x^{2}-x$. What is the value of $f(4)$?
+2025-04-21 13:16:12,148 [INFO] Processing question with OmegaPRM: The function $f(x)$ is defined by $f(x)=x^{2}-x$. What is the value of $f(4)$?
+2025-04-21 13:16:13,504 [INFO] Question 11 is saved to output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:16:17,379 [INFO] Skipping question: Compute the sum of all the roots of $(2x+3)(x-4)+(2x+3)(x-6)=0$.
+2025-04-21 13:16:22,501 [INFO] Skipping question: Three aluminum cans can be recycled to make a new can. How many new cans can eventually be made from 243 aluminum cans? (Remember that the first new cans that are made can then be recycled into even newer cans!)  Do not include the original 243 cans in your count.
+2025-04-21 13:16:25,546 [INFO] Skipping question: What is the domain of the function $$\ell(y) = \frac{1}{(y-2)+(y-8)}~?$$ Express your answer in interval notation.
+2025-04-21 13:16:31,799 [INFO] Question passed filter: What is the value of \[\frac{x^1\cdot x^2\cdot x^3\cdots x^{15}}{x^2\cdot x^4 \cdot x^6 \cdots x^{20}}\]if $x=2$?
+2025-04-21 13:16:31,800 [INFO] Processing question with OmegaPRM: What is the value of \[\frac{x^1\cdot x^2\cdot x^3\cdots x^{15}}{x^2\cdot x^4 \cdot x^6 \cdots x^{20}}\]if $x=2$?
+2025-04-21 13:16:37,077 [INFO] Question 15 is saved to output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:16:40,396 [INFO] Question passed filter: Let $f(x) = Ax - 2B^2$ and $g(x) = Bx$, where $B \neq 0$. If $f(g(1)) = 0$, what is $A$ in terms of $B$?
+2025-04-21 13:16:40,397 [INFO] Processing question with OmegaPRM: Let $f(x) = Ax - 2B^2$ and $g(x) = Bx$, where $B \neq 0$. If $f(g(1)) = 0$, what is $A$ in terms of $B$?
+2025-04-21 13:16:55,503 [INFO] Question 16 is saved to output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:17:11,302 [INFO] Question passed filter: Each of the symbols $\star$ and $*$ represents an operation in the set $\{+,-,\times,\div\}$, and $\frac{12\star 2}{9*3}=2$.  What is the value of $\frac{7\star 3}{12*6}$?  Express your answer as a common fraction.
+2025-04-21 13:17:11,302 [INFO] Processing question with OmegaPRM: Each of the symbols $\star$ and $*$ represents an operation in the set $\{+,-,\times,\div\}$, and $\frac{12\star 2}{9*3}=2$.  What is the value of $\frac{7\star 3}{12*6}$?  Express your answer as a common fraction.
+2025-04-21 13:19:55,007 [INFO] Question 17 is saved to output_results_data/results_part_8.json/math-aps-v2.jsonl
+2025-04-21 13:19:58,405 [INFO] Skipping question: Find the product of the roots of the equation $18t^2 + 45t -500 =0$.
+2025-04-21 13:20:12,043 [INFO] Question passed filter: The expression $x^2 - 16x + 60$ can be written in the form $(x - a)(x - b)$, where $a$ and $b$ are both nonnegative integers and $a > b$. What is the value of $3b - a$?
+2025-04-21 13:20:12,043 [INFO] Processing question with OmegaPRM: The expression $x^2 - 16x + 60$ can be written in the form $(x - a)(x - b)$, where $a$ and $b$ are both nonnegative integers and $a > b$. What is the value of $3b - a$?
+2025-04-21 13:20:15,768 [INFO] Question 19 is saved to output_results_data/results_part_8.json/math-aps-v2.jsonl
