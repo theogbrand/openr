@@ -4,7 +4,7 @@ from datetime import datetime
 import yaml
 from module import Node, perform_rollouts, process_annotations, calculate_mc_score
 from model_utils import LM
-
+import os
 
 def load_config(config_path):
     """
@@ -73,7 +73,12 @@ def main():
     lm_model = LM(model_type=config['model']['model_type'], model_name=config['model']['model_name'], num_rollouts=num_rollouts, **config['model']['model_args'])
     
     # Set up logging
-    setup_logging(log_file_path)
+    formatted_log_path = log_file_path.format(
+        initial_rollouts=initial_rollouts,
+        num_rollouts=num_rollouts,
+        max_iterations=max_iterations
+    )
+    setup_logging(formatted_log_path)
     
     # Start the process and log it
     logging.info("Started processing the JSON file.")
@@ -102,7 +107,14 @@ def main():
         # Check if further processing is needed
         if 0 < sum(correctness_flags) < initial_rollouts:
             print("Processing annotations ...\n")
-            filename = f"{file_prefix}_{i+1}_nodes_data.json"
+            config_parameters = f"{initial_rollouts}_{num_rollouts}_{max_iterations}"
+            # Create directory for output files if it doesn't exist
+            output_dir = f"generated_data/{config_parameters}"
+            os.makedirs(output_dir, exist_ok=True)
+            
+            # Update filename to include the directory
+            filename = f"{output_dir}/{file_prefix}_{i+1}_nodes_data.json"
+            # filename = f"{config_parameters}_{file_prefix}_{i+1}_nodes_data.json"
             process_annotations(problem, nodes, lm_model, filename, max_iterations)
         
     # Log completion

@@ -1,0 +1,62 @@
+[
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "To find the expected value of the sum of the numbers on the two marbles drawn from the bag, we first need to determine the possible sums and their probabilities. The marbles are numbered 1 through 5, so the possible sums are:\n\n\\[\n\\begin{aligned}\n&1+2=3, \\\\\n&1+3=4, \\\\\n&1+4=5,\\\\\n&1+5=6, \\\\\n&2+3=5, \\\\\n&2+4=6, \\\\\n&2+5=7, \\\\\n&3+4=7, \\\\\n&3+5=8, \\\\\n&4+5=9.\n\\end{aligned}\n\\]\n\nNext, we count the number of ways each sum can",
+        "mc_score": 0.5
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "occur. There are \\(\\binom{5}{2} = 10\\) different ways to choose 2 marbles out of 5. The number of ways to get each sum is:\n\n\\[\n\\begin{aligned}\n&\\text{Sum } 3: 1 \\text{ way (1+2)}, \\\\\n&\\text{Sum } 4: 1 \\text{way (1+3)}, \\\\\n&\\text{Sum } 5: 2 \\text{ ways (1+4, 2+3)}, \\\\\n&\\text{Sum } 6: 2 \\text{ ways (1+5, 2+4)},\\\\\n&\\text{Sum } 7: 2 \\text{ ways (2+5, 3+4)}, \\\\\n&\\text{Sum",
+        "mc_score": 0.875
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "} 8: 1 \\text{ way (3+5)}, \\\\\n&\\text{Sum } 9: 1 \\text{ way (4+5)}.\n\\end{aligned}\n\\]\n\nThe probability of each sum is the number of ways to get that sum divided by 10. Therefore, the expected value \\(E\\) of the sum of the numbers on the marbles",
+        "mc_score": 0.75
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "is:\n\\[\nE = \\frac{6 \\cdot 2 + 7 \\cdot 2 + 8 \\cdot 1 + 9 \\cdot 1}{10} = \\frac{12 + 14 + 8 + 9}{10} =\\frac{43}{10} = 6.5.\n\\]\n\nThus, the expected value of the",
+        "mc_score": 0.875
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "is:\n\\[\nE = \\frac{6 \\cdot 2 + 7 \\cdot 2 + 8 \\cdot 1 + 9 \\cdot 1}{10} = \\frac{12 + 14 + 8 + 9}{10} =\\frac{43}{10} = 6.5.\n\\]\n\nThus, the expected value of thesum of the numbers on the",
+        "mc_score": 0.75
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "sum of the numbers on themarbles is",
+        "mc_score": 0.625
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "occur. There are \\(\\binom{5}{2} = 10\\) different ways to choose 2 marbles out of 5. The number of ways to get each sum is:\n\n\\[\n\\begin{aligned}\n&\\text{Sum } 3: 1 \\text{ way (1+2)}, \\\\\n&\\text{Sum } 4: 1 \\text{way (1+3)}, \\\\\n&\\text{Sum } 5: 2 \\text{ ways (1+4, 2+3)}, \\\\\n&\\text{Sum } 6: 2 \\text{ ways (1+5, 2+4)},\\\\\n&\\text{Sum } 7: 2 \\text{ ways (2+5, 3+4)}, \\\\\n&\\text{Sum} 8: 1 \\text{ way (3+5)},",
+        "mc_score": 0.75
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "\\\\\n&\\text{Sum } 9: 1 \\text{ way (4+5)}.\n\\end{aligned}\n\\]\n\nThe expected value \\(E\\) of the sum of the numbers on the marbles is given by the formula:\n\n\\[\nE = \\frac{1}{10} (3 \\cdot 1 + 4 \\cdot 1 + 5 \\cdot 2 + 6 \\cdot2 + 7 \\cdot 2 + 8 \\cdot 1 + 9 \\cdot 1).\n\\]\n\nNow, we calculate the sum inside the parentheses:\n\n\\[\n3 \\cdot 1+ 4 \\cdot 1 + 5 \\cdot 2 + 6 \\cdot 2 + 7 \\cdot 2 + 8\\cdot 1 + 9 \\cdot 1 = 3 + 4+ 10 + 12 + 14+ 8 +",
+        "mc_score": 0.75
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "\\\\\n&\\text{Sum } 9: 1 \\text{ way (4+5)}.\n\\end{aligned}\n\\]\n\nThe expected value \\(E\\) of the sum of the numbers on the marbles is given by the formula:\n\n\\[\nE = \\frac{1}{10} (3 \\cdot 1 + 4 \\cdot 1 + 5 \\cdot 2 + 6 \\cdot2 + 7 \\cdot 2 + 8 \\cdot 1 + 9 \\cdot 1).\n\\]\n\nNow, we calculate the sum inside the parentheses:\n\n\\[\n3 \\cdot 1+ 4 \\cdot 1 + 5 \\cdot 2 + 6 \\cdot 2 + 7 \\cdot 2 + 8\\cdot 1 + 9 \\cdot 1 = 3 + 4+ 10 + 12 + 14+ 8 +9=",
+        "mc_score": 0.625
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "60.\n\\]\n\nSo, the expected value is:\n\n\\[\nE = \\frac{60}{10} = 6.\n\\]\n\nTherefore,",
+        "mc_score": 0.875
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "} 8: 1 \\text{ way (3+5)}, \\\\\n&\\text{Sum } 9: 1 \\text{ way (4+5)}.\n\\end{aligned}\n\\]\n\nThe probability of each sum is the number of ways to get that sum divided by 10. Therefore, the expected value \\(E\\) of the sum of the numbers on the marblesis:\n\n\\[\nE = 3 \\cdot \\frac{1}{10} + 4 \\cdot \\frac{1}{10} + 5 \\cdot \\frac{2}{10} + 6 \\cdot \\frac{2}{10} + 7 \\cdot \\frac{2}{10}+ 8 \\cdot \\frac{1}{10} + 9 \\cdot \\frac{1}{10}.\n\\]\n\nWe can",
+        "mc_score": 0.625
+    },
+    {
+        "question": "I have 5 marbles numbered 1 through 5 in a bag.  Suppose I take out two different marbles at random.  What is the expected value of the sum of the numbers on the marbles?",
+        "partial_answer": "To find the expected value of the sum of the numbers on the two marbles drawn from the bag, we first need to determine the possible sums and their probabilities. The marbles are numbered 1 through 5, so the possible sums are:\n\n\\[\n\\begin{aligned}\n&1+2=3, \\\\\n&1+3=4, \\\\\n&1+4=5,\\\\\n&1+5=6, \\\\\n&2+3=5, \\\\\n&2+4=6, \\\\\n&2+5=7, \\\\\n&3+4=7, \\\\\n&3+5=8, \\\\\n&4+5=9.\n\\end{aligned}\n\\]\n\nNext, we count the number of ways each sum canoccur. There are 10 possible ways to choose 2 marbles out of 5, whichis given by the combination formula\\(\\binom{5}{2} =10\\).\n\n-",
+        "mc_score": 0.0
+    }
+]
