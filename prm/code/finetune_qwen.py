@@ -118,8 +118,9 @@ print(f"Model loaded and moved to: {model.device}") # Verify device
 print(f"PEFT Model device: {model.device}") # Verify device after PEFT
 
 question = "Janet\u2019s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for $2 per fresh duck egg. How much in dollars does she make every day at the farmers' market?"
-output1 = "Step 1: Janet's ducks lay 16 eggs per day. ки\nStep 2: She eats three for breakfast every morning, so she has 16 - 3 = 13 eggs left. ки\nStep 3: She bakes muffins for her friends every day with four eggs, so she has 13 - 4 = 9 eggs left. ки\nStep 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $18 every day at the farmers' market. The answer is: 18 ки" # 18 is right
-output2 = "Step 1: Janet's ducks lay 16 eggs per day. ки\nStep 2: She eats three for breakfast every morning, so she has 16 - 3 = 13 eggs left. ки\nStep 3: She bakes muffins for her friends every day with four eggs, so she has 13 - 4 = 9 eggs left. ки\nStep 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $17 every day at the farmers' market. The answer is: 17 ки" # 17 is wrong
+# Match the format in test.json exactly
+output1 = f"Step 1: Janet's ducks lay 16 eggs per day.{step_tag}Step 2: She eats three for breakfast every morning, so she has 16 - 3 = 13 eggs left.{step_tag}Step 3: She bakes muffins for her friends every day with four eggs, so she has 13 - 4 = 9 eggs left.{step_tag}Step 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $18 every day at the farmers' market. The answer is: 18{step_tag}" # 18 is right
+output2 = f"Step 1: Janet's ducks lay 16 eggs per day.{step_tag}Step 2: She eats three for breakfast every morning, so she has 16 - 3 = 13 eggs left.{step_tag}Step 3: She bakes muffins for her friends every day with four eggs, so she has 13 - 4 = 9 eggs left.{step_tag}Step 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $17 every day at the farmers' market. The answer is: 17{step_tag}" # 17 is wrong
 def preprocess_function(example):
     input = f"{example['question']} {example['process']}"
     tokenized_inputs = tokenizer(
@@ -221,7 +222,8 @@ print(ddp)
 
 
 fp = f'bs_{args.total_batch_size}_lr_{args.learning_rate}_datasets_{args.datasets}'
-output_path = f'./prm_results_qwen_new.{args.server}/{fp}'
+output_path = f'./prm_training_checkpoints_qwen.{args.server}/{fp}'
+# output_path = f'./prm_results_qwen_new.{args.server}/{fp}'
 
 
 # Training arguments
@@ -291,8 +293,8 @@ print("Training finished")
 print()
 
 # Save the fine-tuned model and tokenizer
-model.save_pretrained('./fine_tuned_math_shepherd_lora_8bit')
-tokenizer.save_pretrained('./fine_tuned_math_shepherd_lora_8bit')
+model.save_pretrained('./adapter_math_shepherd_lora_8bit')
+tokenizer.save_pretrained('./adapter_math_shepherd_lora_8bit')
 
 
 print('start testing')
