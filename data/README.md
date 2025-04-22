@@ -8,7 +8,7 @@ Edit the `config.yaml` file to set the model and other parameters. Input json fi
 
 ```yaml
 input:
-  json_file_path: 'extracted_problems_and_answers.json'
+  json_file_path: 'extracted_problems_and_answers.json' [this is the MATH dataset]
 
 output:
   file_prefix: 'math'
