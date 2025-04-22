@@ -86,13 +86,17 @@ print('step_tag_id:',tokenizer.encode(f" {step_tag}"))
 print('step_tag_id2:',tokenizer.encode(f"{step_tag2}"))
 # model = AutoModelForCausalLM.from_pretrained('peiyi9979/math-shepherd-mistral-7b-prm').eval()
 # model = AutoModelForCausalLM.from_pretrained(model_path).eval()
+
+# Determine the correct device for this process
+# In a torchrun/accelerate launch environment, LOCAL_RANK is set.
+local_rank = int(os.environ.get("LOCAL_RANK", 0))
+device = f"cuda:{local_rank}"
+
 model = AutoModelForCausalLM.from_pretrained(
     model_path,
-    # load_in_8bit=True,   # Enables 8-bit quantization
-    # device_map="auto",   # Automatically assigns the model to available GPUs/CPUs
-    # torch_dtype=torch.float16,  # Mixed precision for faster inference
     torch_dtype=torch.bfloat16,
     attn_implementation="flash_attention_2",
+    use_cache = False # https://github.com/huggingface/transformers/issues/26877
 )
 
 # for name,param in model.named_parameters():
@@ -108,9 +112,11 @@ lora_config = LoraConfig(
 )
 
 model = get_peft_model(model, lora_config)
+# Move the base model to the correct device BEFORE applying PEFT
+model.to(device)
+print(f"Model loaded and moved to: {model.device}") # Verify device
+print(f"PEFT Model device: {model.device}") # Verify device after PEFT
 
-# model.to('cuda:0')
-print(model.device)
 question = "Janet\u2019s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for $2 per fresh duck egg. How much in dollars does she make every day at the farmers' market?"
 output1 = "Step 1: Janet's ducks lay 16 eggs per day. ки\nStep 2: She eats three for breakfast every morning, so she has 16 - 3 = 13 eggs left. ки\nStep 3: She bakes muffins for her friends every day with four eggs, so she has 13 - 4 = 9 eggs left. ки\nStep 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $18 every day at the farmers' market. The answer is: 18 ки" # 18 is right
 output2 = "Step 1: Janet's ducks lay 16 eggs per day. ки\nStep 2: She eats three for breakfast every morning, so she has 16 - 3 = 13 eggs left. ки\nStep 3: She bakes muffins for her friends every day with four eggs, so she has 13 - 4 = 9 eggs left. ки\nStep 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $17 every day at the farmers' market. The answer is: 17 ки" # 17 is wrong
@@ -155,31 +161,33 @@ def preprocess_function(example):
 DATA_PATH = {
     # "train": 'multi-step.json', 
     # 'train': 'test.json',
-    "test": os.path.join(args.data_path, 'prm800k_test.json'),
-    "train": os.path.join(args.data_path, "math_aps.json"),
+    "test": '/mnt/weka/aisg/ob1/openr/prm/code/test.json',
+    "train": '/mnt/weka/aisg/ob1/openr/datasets/math_aps.json',
+    # "test": os.path.join(args.data_path, 'prm800k_test.json'),
+    # "train": os.path.join(args.data_path, "math_aps.json"),
     # "train": "../../datasets/processed_data/prm800k/data/phase2_train_new.jsonl",
     # "test": "../../datasets/prm800k-main/prm800k/data/phase2_test_new.jsonl",
     
 }
 
 dataset = load_dataset('json', data_files=DATA_PATH)
-if args.datasets == 'both':
-    dataset2 = load_dataset('json',data_files=os.path.join(args.data_path, "prm800k_train.json"))
-    dataset['train'] = concatenate_datasets([dataset['train'], dataset2['train']])
-elif args.datasets == 'all':
-    dataset2 = load_dataset('json',data_files=os.path.join(args.data_path, "prm800k_train.json"))
-    dataset3 = load_dataset('json',data_files=os.path.join(args.data_path, "math_shepherd.json"))
+# if args.datasets == 'both':
+#     dataset2 = load_dataset('json',data_files=os.path.join(args.data_path, "prm800k_train.json"))
+#     dataset['train'] = concatenate_datasets([dataset['train'], dataset2['train']])
+# elif args.datasets == 'all':
+#     dataset2 = load_dataset('json',data_files=os.path.join(args.data_path, "prm800k_train.json"))
+#     dataset3 = load_dataset('json',data_files=os.path.join(args.data_path, "math_shepherd.json"))
 
-    aps_length = len(dataset['train'])
-    prm800k_length = len(dataset2['train'])
-    random.seed(42)
-    dataset['train'] = dataset['train'].select(random.sample(range(aps_length),50000))
-    random.seed(42)
-    dataset2['train'] = dataset2['train'].select(random.sample(range(prm800k_length),50000))
-    dataset['train'] = concatenate_datasets([dataset['train'], dataset2['train'],dataset3['train']])
-elif args.datasets == 'aps_shepherd':
-    dataset3 = load_dataset('json',data_files=os.path.join(args.data_path, "math_shepherd.json"))
-    dataset['train'] = concatenate_datasets([dataset['train'],dataset3['train']])
+#     aps_length = len(dataset['train'])
+#     prm800k_length = len(dataset2['train'])
+#     random.seed(42)
+#     dataset['train'] = dataset['train'].select(random.sample(range(aps_length),50000))
+#     random.seed(42)
+#     dataset2['train'] = dataset2['train'].select(random.sample(range(prm800k_length),50000))
+#     dataset['train'] = concatenate_datasets([dataset['train'], dataset2['train'],dataset3['train']])
+# elif args.datasets == 'aps_shepherd':
+#     dataset3 = load_dataset('json',data_files=os.path.join(args.data_path, "math_shepherd.json"))
+#     dataset['train'] = concatenate_datasets([dataset['train'],dataset3['train']])
 
 
 
@@ -219,7 +227,7 @@ output_path = f'./prm_results_qwen_new.{args.server}/{fp}'
 # Training arguments
 training_args = TrainingArguments(
     output_dir=output_path,
-    evaluation_strategy="no",  # Evaluate at the end of each epoch
+    eval_strategy="no",  # Evaluate at the end of each epoch
     learning_rate=args.learning_rate,
     per_device_train_batch_size=args.per_device_train_batch_size,
     per_device_eval_batch_size=args.per_device_eval_batch_size,
@@ -279,17 +287,19 @@ trainer = Trainer(
 
 trainer.train()
 # trainer.evaluate()
+print("Training finished")
+print()
 
 # Save the fine-tuned model and tokenizer
 model.save_pretrained('./fine_tuned_math_shepherd_lora_8bit')
 tokenizer.save_pretrained('./fine_tuned_math_shepherd_lora_8bit')
 
 
-
+print('start testing')
 for output in [output1,output2]:
 # for output in [output1, output2,output3]:
     input_for_prm = f"{question} {output}"
-    input_id = torch.tensor([tokenizer.encode(input_for_prm)])
+    input_id = torch.tensor([tokenizer.encode(input_for_prm)]).to(model.device)
     # print(input_id)
 
     with torch.no_grad():

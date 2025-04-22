@@ -13,12 +13,12 @@ from torch.nn import BCEWithLogitsLoss
 from transformers import DataCollatorWithPadding
 from transformers import TrainerCallback
 from datasets import concatenate_datasets
-from prm.code.finetune_qwen import DATA_PATH
+# from prm.code.finetune_qwen import DATA_PATH
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model_path", type=str, default="Qwen/Qwen2.5-Math-7B-Instruct")
-parser.add_argument("--train_data_path", type=str, default="../../datasets/math_aps.json")
-parser.add_argument("--test_data_path", type=str, default="../../datasets/prm800k_test.json")
+parser.add_argument("--train_data_path", type=str, default="/mnt/weka/aisg/ob1/openr/datasets/math_aps.json")
+parser.add_argument("--test_data_path", type=str, default="/mnt/weka/aisg/ob1/openr/prm/code/test.json")
 parser.add_argument("--per_device_train_batch_size", type=int, default=2)
 parser.add_argument("--per_device_eval_batch_size", type=int, default=16)
 parser.add_argument("--total_batch_size", type=int, default=256)
@@ -81,10 +81,11 @@ print('step_tag_id2:',tokenizer.encode(f"{step_tag2}"))
 model = AutoModelForCausalLM.from_pretrained(
     model_path,
     # load_in_8bit=True,   # Enables 8-bit quantization
-    device_map="auto",   # Automatically assigns the model to available GPUs/CPUs
+    # device_map="auto",   # Automatically assigns the model to available GPUs/CPUs
     # torch_dtype=torch.float16,  # Mixed precision for faster inference
     torch_dtype=torch.bfloat16,  # Mixed precision for faster inference
     attn_implementation="flash_attention_2",
+    use_cache = False
 )
 
 # for name,param in model.named_parameters():
@@ -101,7 +102,7 @@ lora_config = LoraConfig(
 
 model = get_peft_model(model, lora_config)
 
-# model.to('cuda:0')
+model.to('cuda:0')
 print(model.device)
 question = "Janet\u2019s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for $2 per fresh duck egg. How much in dollars does she make every day at the farmers' market?"
 output1 = "Step 1: Janet's ducks lay 16 eggs per day. ки\nStep 2: She eats three for breakfast every morning, so she has 16 - 3 = 13 eggs left. ки\nStep 3: She bakes muffins for her friends every day with four eggs, so she has 13 - 4 = 9 eggs left. ки\nStep 4: She sells the remainder at the farmers' market daily for $2 per fresh duck egg, so she makes 9 * $2 = $18 every day at the farmers' market. The answer is: 18 ки" # 18 is right
@@ -162,8 +163,8 @@ DATA_PATH['test'] = args.test_data_path
 dataset = load_dataset('json', data_files=DATA_PATH)
 # dataset['train'] = concatenate_datasets([dataset['train'], dataset2['train']])
 
-dataset['train'] = dataset['train'].select(range(10000))
-dataset['test'] = dataset['test'].select(range(10000))
+dataset['train'] = dataset['train'].select(range(3472))
+dataset['test'] = dataset['test'].select(range(3))
 
 print('start processing')
 tokenized_datasets = dataset.map(preprocess_function)
@@ -194,7 +195,7 @@ class SaveBeforeEvaluateCallback(TrainerCallback):
 # Training arguments
 training_args = TrainingArguments(
     output_dir=output_path,
-    evaluation_strategy="no",  # Evaluate at the end of each epoch
+    eval_strategy="no",  # Evaluate at the end of each epoch
     learning_rate=args.learning_rate,
     per_device_train_batch_size=args.per_device_train_batch_size,
     per_device_eval_batch_size=args.per_device_eval_batch_size,
