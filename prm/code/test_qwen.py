@@ -28,7 +28,7 @@ bad_token = '-'
 step_tag = '\n\n\n\n\n' #ки
 step_tag2 = '\n\n'
 
-model_path = "../../models/Qwen/Qwen2.5-Math-7B-Instruct/"
+model_path = "Qwen/Qwen2.5-Math-7B-Instruct"
 
 # tokenizer = AutoTokenizer.from_pretrained(model_path)
 
@@ -101,10 +101,13 @@ print(model)
 
 # model = get_peft_model(model, lora_config)
 
-adapter_config = PeftConfig.from_pretrained('./prm_results_qwen/bs_256_lr_0.0001/checkpoint-3449')
+adapter_path = './prm_training_checkpoints_qwen.1/bs_256_lr_0.0001_datasets_all/checkpoint-39'
+
+# adapter_config = PeftConfig.from_pretrained('./prm_results_qwen/bs_256_lr_0.0001/checkpoint-3449')
+adapter_config = PeftConfig.from_pretrained(adapter_path)
 
 # Wrap the pre-trained model with the LoRA fine-tuned weights
-model = PeftModel.from_pretrained(model, './prm_results_qwen/bs_256_lr_0.0001/checkpoint-3449')
+model = PeftModel.from_pretrained(model, adapter_path)
 
 # model.to('cuda:0')
 print(model.device)
